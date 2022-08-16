@@ -80,18 +80,21 @@ void setButtonState(int button, bool pressed) {
 
 
 #undef main
+#include <hal/video.h>
 int main(int argc, char** argv) {
+
+  XVideoSetMode(640, 480, 32, REFRESH_DEFAULT);
   // set up SDL
   if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_GAMECONTROLLER) != 0) {
     printf("Failed to init SDL: %s\n", SDL_GetError());
     return 1;
   }
-  SDL_Window* window = SDL_CreateWindow("Zelda3", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 512, 480, 0);
+  SDL_Window* window = SDL_CreateWindow("Zelda3", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, 0);
   if(window == NULL) {
     printf("Failed to create window: %s\n", SDL_GetError());
     return 1;
   }
-  SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+  SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
   if(renderer == NULL) {
     printf("Failed to create renderer: %s\n", SDL_GetError());
     return 1;
@@ -104,7 +107,7 @@ int main(int argc, char** argv) {
   SDL_AudioSpec want, have;
   SDL_AudioDeviceID device;
   SDL_memset(&want, 0, sizeof(want));
-  want.freq = 44100;
+  want.freq = 48000;
   want.format = AUDIO_S16;
   want.channels = 2;
   want.samples = 2048;

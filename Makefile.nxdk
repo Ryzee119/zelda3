@@ -1,0 +1,10 @@
+XBE_TITLE = Zelda3
+GEN_XISO = $(XBE_TITLE).iso
+NXDK_SDL = y
+NXDK_CXX = y
+
+SRCS += $(wildcard $(CURDIR)/*.cpp) $(wildcard $(CURDIR)/snes/*.cpp)
+CFLAGS += -I$(CURDIR) -O3
+CXXFLAGS += -I$(CURDIR) -O3
+
+include $(NXDK_DIR)/Makefile

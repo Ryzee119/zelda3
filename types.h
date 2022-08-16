@@ -14,7 +14,7 @@ typedef int32_t int32;
 #define sign16(x) ((x) & 0x8000)
 #define load24(x) ((*(uint32*)&(x))&0xffffff)
 
-#ifdef _MSC_VER
+#if defined(_MSC_VER) && !defined(NXDK)
 #define countof _countof
 #else
 #define countof(a) (sizeof(a)/sizeof(*(a)))
